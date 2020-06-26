@@ -7,6 +7,14 @@
   margin-top: 20px;
   color: purple;
 }
+.danger {
+  color: rgb(196, 0, 0);
+}
+.question {
+  flex: 1;
+  padding: 0px 15px;
+  font-size: 0.9em;
+}
 .question-row {
   display: flex;
   flex-direction: row;
@@ -17,7 +25,8 @@
 }
 .date-formatted {
   font-size: 1.5em;
-  padding: 10px 0px;
+  padding: 10px 0px 30px 0px;
+  text-align: center;
 }
 .yesno {
   font-size: 0.8em;
