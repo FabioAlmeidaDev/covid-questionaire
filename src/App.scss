@@ -1,113 +1,24 @@
-$mainBackgroundColor: white;
-html {
-  scroll-behavior: smooth;
+.paper-padding {
+  padding: 20px;
+  margin-top: 20px;
 }
-
-body{
-  background-color: #FFF;
-  // background: url("./images/portraits/IMG_0827.JPG") no-repeat;
-  // background-position: top left;
-  // background-size: cover ;
-  // background-attachment: fixed;
-  .with-bkg{
-    background: url("./images/portraits/IMG_0827.JPG") no-repeat;
-    background-position: top left;
-    background-size: cover ;
-    background-attachment: fixed;
-
-  }
-  
+.section-title {
+  font-size: 1.5em;
+  margin-top: 20px;
+  color: purple;
 }
-main{
-  width:100%;
-}
-.flex-container{
-  display: inline-flex;
-  flex-wrap: wrap;
-
-  
-}
-.navigation-bar{
-  position: fixed;
-  top:0px;
-  box-shadow: 0px 0.5px 2px 2px rgba(0,0,0,0.25);
+.question-row {
   display: flex;
-  width:100%;
-  background-color: $mainBackgroundColor;
-  z-index: 10000;
-  justify-content: flex-end;
-  .home-button{
-    align-self: stretch;
-    display: flex;
-    justify-self: flex-start;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 1em;
-  }
-  ul{
-    display: inline-flex;
-    justify-content: flex-end;
-    padding:0px;
-    margin:0px;
-    li{
-      display: inline-flex;
-      a{
-        text-decoration: none;
-        width:100%;
-        height:100%;
-        padding:1em;
-
-        display: flex;
-        &:hover{
-          background-color: #EEE;
-        }
-      }
-     
-    }
-  }
+  flex-direction: row;
+  padding: 15px 10px;
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-left: 3px solid black;
 }
-.main-container{
-  background-color:white;
-  display: flex;
-  flex-direction: column;
+.date-formatted {
+  font-size: 1.5em;
+  padding: 10px 0px;
 }
-
-
-.inline-flex{
-  display: inline-flex;
-}
-.center{
-  width: fit-content;
-  align-self: center;
-}
-.center-horizontally{
-  margin-left:auto;
-  margin-right:auto;
-}
-
-.center-horizontally{
-  &.timeline{
-    b{
-      color:rgb(255, 204, 0);
-    }
-  }
-
-}
-.container-fluid{
-  padding:0px;
-}
-.container-fluid.highlighted{
-  background-color:#EFEFEF;
-  padding:1.5em 0em 3em 0em;
-  margin:1.5em 0px 0px 0px;
-  .section-title .inner {
-    margin-top:0px;
-  }
-}
-a.project-item-anchor {
-  display: block;
-  position: relative;
-  top: -90px;
-  visibility: hidden;
+.yesno {
+  font-size: 0.8em;
 }
