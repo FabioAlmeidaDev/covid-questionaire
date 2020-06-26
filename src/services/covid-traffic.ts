@@ -9,3 +9,8 @@ export const getQuestionList = async (data?: {}) => {
   const response = await api.get('/covid/questions');
   return response.data;
 };
+
+export const saveAnswers = async (data?: {}) => {
+  const response = await api.post('/covid/add', data);
+  return response.data;
+};
