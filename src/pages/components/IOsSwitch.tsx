@@ -10,7 +10,7 @@ interface Styles extends Partial<Record<SwitchClassKey, string>> {
 
 interface Props extends SwitchProps {
   classes?: Styles;
-  item: string;
+  item: number;
   parentState: any;
   parentOnStateChange: any;
 }
@@ -52,25 +52,22 @@ const AntSwitch = withStyles((theme: Theme) =>
 )(Switch);
 
 export const IOsSwitch = ({ ...props }: Props) => {
-  const [state, setState] = React.useState({
-    checkedC: true
-  });
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-    props.parentOnStateChange({ ...props.parentState, [props.item]: event.target.checked });
+    let tempQuestions = props.parentState;
+    tempQuestions[props.item].v = event.target.checked;
+    props.parentOnStateChange([...tempQuestions]);
   };
 
   return (
     <Typography component="div">
       <Grid component="label" container alignItems="center" spacing={1}>
-        <Grid item className="yesno">
+        <Grid item className={`yesno ${props.parentState[props.item].v == false ? 'selected-option' : ''}`}>
           No
         </Grid>
         <Grid item>
-          <AntSwitch checked={state.checkedC} onChange={handleChange} name="checkedC" />
+          <AntSwitch checked={props.parentState[props.item].v} onChange={handleChange} name="checkedC" />
         </Grid>
-        <Grid item className="yesno">
+        <Grid item className={`yesno ${props.parentState[props.item].v == true ? 'selected-option' : ''}`}>
           Yes
         </Grid>
       </Grid>

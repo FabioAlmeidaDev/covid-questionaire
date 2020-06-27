@@ -33,7 +33,7 @@ export const Search = withConditionalRender((props: any) => {
       groupBy={(athlete) => athlete.group}
       getOptionLabel={(athlete) => athlete.name}
       renderInput={(params) => <TextField {...params} label="Athlete's Name" variant="outlined" />}
-      className=" row"
+      className="search-bar"
     />
   );
 });

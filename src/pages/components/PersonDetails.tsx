@@ -1,19 +1,25 @@
 import React from 'react';
 import { withConditionalRender } from '../../enhancers/withConditionalRender';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
+import Person from '@material-ui/icons/Person';
 
 const component = (props: any) => {
-  const { value, setValue } = props;
+  const { value, setValue, onClose } = props;
 
-  const clearButtonHandler = () => setValue({ ...value, name: null });
+  const clearButtonHandler = () => onClose();
   return (
     <div className="details">
-      <div className="section-title">Details</div>
-      <div>
-        {value.name} ({value.group})
+      <div className="athlete-name">
+        <IconButton>
+          <Person />
+        </IconButton>
+        {value.name} <span className="athlete-group">({value.group})</span>
       </div>
       <div className="clear-button" onClick={clearButtonHandler}>
-        {' '}
-        x{' '}
+        <IconButton>
+          <Close />
+        </IconButton>
       </div>
     </div>
   );
