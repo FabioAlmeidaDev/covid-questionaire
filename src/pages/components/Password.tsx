@@ -32,6 +32,7 @@ export const Password = withConditionalRender((props: any) => {
     <FormControl className={className}>
       <InputLabel htmlFor="adornment-password">{placeholder}</InputLabel>
       <Input
+        inputMode="numeric"
         id="adornment-password"
         type={visibility ? 'text' : 'password'}
         value={props.name ? state[props.name] : state.password}

@@ -176,10 +176,10 @@ export const Register = (props: any) => {
           </TextField>
         </div>
         <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Email" value={state.email} variant="outlined" onChange={handleChange('email')} />
+          <TextField inputProps={{ inputMode: 'email' }} className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Email" value={state.email} variant="outlined" onChange={handleChange('email')} />
         </div>
         <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Phone Number" value={state.phone_no} variant="outlined" onChange={handleChange('phone_no')} />
+          <TextField inputProps={{ inputMode: 'tel' }} className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Phone Number" value={state.phone_no} variant="outlined" onChange={handleChange('phone_no')} />
         </div>
         <div className="form-row">
           <Password name="password" maxLength={4} state={state} setState={setState} placeholder="4 Digit Pin" />
