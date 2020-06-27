@@ -9,17 +9,23 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { withConditionalRender } from '../../enhancers/withConditionalRender';
 
 export const Password = withConditionalRender((props: any) => {
+  const [visibility, setVisibility] = React.useState(false);
+
   const { state, setState, placeholder = '', maxLength = 20, className } = props;
   const handleChange = (prop: any) => (event: any) => {
     if (event.target) {
       if (event.target.value.length <= maxLength) {
-        setState({ [prop]: event.target.value });
+        if (props.name) {
+          setState({ ...state, [props.name]: event.target.value });
+        } else {
+          setState({ ...state, [prop]: event.target.value });
+        }
       }
     }
   };
 
   const handleClickShowPassword = () => {
-    setState({ ...state, showPassword: !state.showPassword });
+    setVisibility(!visibility);
   };
 
   return (
@@ -27,13 +33,14 @@ export const Password = withConditionalRender((props: any) => {
       <InputLabel htmlFor="adornment-password">{placeholder}</InputLabel>
       <Input
         id="adornment-password"
-        type={state.showPassword ? 'text' : 'password'}
-        value={state.password}
+        type={visibility ? 'text' : 'password'}
+        value={props.name ? state[props.name] : state.password}
+        error={props.error}
         onChange={handleChange('password')}
         endAdornment={
           <InputAdornment position="end">
             <IconButton aria-label="Toggle password visibility" onClick={handleClickShowPassword}>
-              {state.showPassword ? <Visibility /> : <VisibilityOff />}
+              {visibility ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
         }

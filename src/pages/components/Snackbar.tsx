@@ -32,7 +32,7 @@ export const Notification = (props: any) => {
         }}
         open={open.open}
         autoHideDuration={6000}
-        // onClose={handleClose}
+        onClose={handleClose}
         // message={open.message}
         // action={
         //   <React.Fragment>

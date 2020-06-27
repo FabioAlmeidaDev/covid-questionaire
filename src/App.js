@@ -10,6 +10,7 @@ import './App.scss';
 
 // Pages
 import Home from './pages/Home.tsx';
+import Register from './pages/Register.tsx';
 import i18n from './i18n';
 
 function App() {
@@ -45,8 +46,8 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/users">
-            <Home />
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/">
             <Home />
