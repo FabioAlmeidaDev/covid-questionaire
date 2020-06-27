@@ -68,7 +68,7 @@ export const Home = (props: any) => {
   return (
     <Container>
       <Spinner display={spinner} />
-      <Header title="COVID-19 Triage" subtitle="Must be filled out and submitted before every class" />
+      <Header title="COVID-19 Triage" subtitle="This form must be filled out and submitted before every class" />
       <Search value={value} setValue={setValue} display={!value.name} />
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
       <Paper className="paper-padding">
