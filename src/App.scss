@@ -74,10 +74,17 @@ body {
 .password {
   margin-right: 20px !important;
   text-align: center;
+  width: 150px;
 }
 @media screen and (max-width: 600px) {
   .question-answer {
     margin-top: 20px;
+  }
+  .question-answer > div {
+    width: 107px;
+  }
+  .question-answer > div > label {
+    width: 100%;
   }
   .question {
     padding: 15px;
