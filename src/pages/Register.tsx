@@ -103,6 +103,15 @@ export const Register = (props: any) => {
     },
     {
       label: 'Coach'
+    },
+    {
+      label: 'Parent'
+    },
+    {
+      label: 'Staff'
+    },
+    {
+      label: 'Other'
     }
   ];
 

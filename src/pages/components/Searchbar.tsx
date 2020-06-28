@@ -28,8 +28,8 @@ export const Search = withConditionalRender((props: any) => {
         setInputValue(newInputValue);
       }}
       id="controllable-states-demo"
-      options={athleteList}
-      // options={options.sort((a, b) => -b.name.localeCompare(a.name))}
+      // options={athleteList}
+      options={athleteList.sort((a: any, b: any) => -b.group.localeCompare(a.group))}
       groupBy={(athlete) => athlete.group}
       getOptionLabel={(athlete) => athlete.name}
       renderInput={(params) => <TextField {...params} label="Athlete's Name" variant="outlined" />}
