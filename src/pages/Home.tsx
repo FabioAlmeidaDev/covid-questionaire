@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Container, Paper as paper, Button as MUIButton } from '@material-ui/core';
+import { Container, Paper as P, Button as MUIButton } from '@material-ui/core';
 
 import Person from '@material-ui/icons/PersonAdd';
 import { Search } from './components/Searchbar';
@@ -22,7 +22,7 @@ export const Home = (props: any) => {
   const [value, setValue] = React.useState({ _id: null, name: '', group: '', dob: '' });
   const [questions, setQuestions] = React.useState([]);
   const [spinner, setSpinner] = React.useState(false);
-  const [password, setPassword] = React.useState({ password: '', showPassword: false });
+  const [password, setPassword] = React.useState({ password: '' });
   const [notification, setNotification] = React.useState({ message: '', open: false, severity: 'success', onClose: () => {} });
 
   let history = useHistory();
@@ -38,7 +38,7 @@ export const Home = (props: any) => {
 
   // adding conditional display to button
   const Button = withConditionalRender(MUIButton);
-  const Paper = withConditionalRender(paper);
+  const Paper = withConditionalRender(P);
 
   const resetQuestions = () => {
     questions.map((question: any) => {
@@ -51,7 +51,7 @@ export const Home = (props: any) => {
     if (!!value.name) {
       resetQuestions();
       setValue({ _id: null, name: '', group: '', dob: '' });
-      setPassword({ password: '', showPassword: false });
+      setPassword({ password: '' });
     }
   };
 
@@ -95,13 +95,13 @@ export const Home = (props: any) => {
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
       <Paper className="paper-padding" display={!!value.name}>
         <Questions questions={questions} setQuestions={setQuestions} />
-        <div className="row footer">
-          <Password state={password} setState={setPassword} placeholder="4 Digit Pin" maxLength={4} className="password" />
-          <Button variant="contained" color="primary" onClick={saveData} disabled={password.password.length < 4}>
-            Save Answers
-          </Button>
-        </div>
       </Paper>
+      <div className="row footer" style={{ display: !value.name ? 'none' : '' }}>
+        <Password state={password} setState={setPassword} placeholder="4 Digit Pin" maxLength={4} className="password" />
+        <Button variant="contained" color="primary" onClick={saveData} disabled={password.password.length < 4}>
+          Save Answers
+        </Button>
+      </div>
       <Disclaimer display={!value.name} />
       <Notification open={notification} setOpen={setNotification} />
     </Container>
