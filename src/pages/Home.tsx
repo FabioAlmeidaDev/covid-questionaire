@@ -1,6 +1,9 @@
 import React from 'react';
-import { Container, Paper, Button as MUIButton } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
+import { Container, Paper as paper, Button as MUIButton } from '@material-ui/core';
+
+import Person from '@material-ui/icons/PersonAdd';
 import { Search } from './components/Searchbar';
 import { Questions } from './components/Questions';
 import { saveAnswers } from '../services/covid-traffic';
@@ -21,8 +24,11 @@ export const Home = (props: any) => {
   const [password, setPassword] = React.useState({ password: '', showPassword: false });
   const [notification, setNotification] = React.useState({ message: '', open: false, severity: 'success', onClose: () => {} });
 
+  let history = useHistory();
+
   // adding conditional display to button
   const Button = withConditionalRender(MUIButton);
+  const Paper = withConditionalRender(paper);
 
   const resetQuestions = () => {
     questions.map((question: any) => {
@@ -70,9 +76,14 @@ export const Home = (props: any) => {
       <Spinner display={spinner} />
       <Header title="COVID-19 Triage" subtitle="This form must be filled out and submitted before every class" />
       <Search value={value} setValue={setValue} display={!value.name} />
+      <div className="add-new-name">
+        <Button variant="outlined" color="primary" display={!value.name} onClick={() => history.push('/register')}>
+          <Person fontSize="small" className="add-person-icon" />
+          Click to add a new name
+        </Button>
+      </div>
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
-      <Paper className="paper-padding">
-        <Disclaimer display={!value.name} />
+      <Paper className="paper-padding" display={!!value.name}>
         <Questions questions={questions} setQuestions={setQuestions} display={!!value.name} />
         <div className="row footer">
           <Password state={password} setState={setPassword} display={!!value.name} placeholder="4 Digit Pin" maxLength={4} className="password" />
@@ -81,6 +92,7 @@ export const Home = (props: any) => {
           </Button>
         </div>
       </Paper>
+      <Disclaimer display={!value.name} />
       <Notification open={notification} setOpen={setNotification} />
     </Container>
   );

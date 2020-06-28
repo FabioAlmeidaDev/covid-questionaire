@@ -76,6 +76,40 @@ body {
   text-align: center;
   width: 150px;
 }
+.add-new-name {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0px;
+}
+.info.disclaimer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  & > div {
+    padding: 5px;
+  }
+}
+.breadcrumb-container {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 0.8em;
+  .breadcrumb-button {
+    padding: 2px 10px 2px 0px;
+    border-radius: 3px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.breadcrumb-button {
+  display: flex;
+}
+.add-person-icon {
+  color: rgba(0, 0, 255, 0.3);
+  margin-right: 10px;
+}
 @media screen and (max-width: 600px) {
   .question-answer {
     margin-top: 20px;
@@ -97,6 +131,11 @@ body {
   .title {
     margin-top: 20px;
     text-align: center;
+  }
+  .add-new-name {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
   }
 }
 .form-row {

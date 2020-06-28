@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Container, TextField, MenuItem, Paper, Button as MUIButton } from '@material-ui/core';
 
 import { Password } from './components/Password';
@@ -8,6 +9,7 @@ import { registerAthlete } from '../services/athlete-traffic';
 import { Header } from './components/Header';
 import { Disclaimer } from './components/Disclaimer';
 import { Notification } from './components/Snackbar';
+import { Breadcrumb } from './components/Breadcrumb';
 import { withConditionalRender } from '../enhancers/withConditionalRender';
 
 import '../App.scss';
@@ -17,6 +19,8 @@ export const Register = (props: any) => {
   const [state, setState] = React.useState(initialState);
   const [spinner, setSpinner] = React.useState(false);
   const [notification, setNotification] = React.useState({ message: '', open: false, severity: 'success', onClose: () => {} });
+
+  let history = useHistory();
 
   const groups = [
     {
@@ -51,6 +55,9 @@ export const Register = (props: any) => {
     },
     {
       label: 'USAG - Elite'
+    },
+    {
+      label: 'Boys - JD'
     },
     {
       label: 'USAIGC - Copper 1'
@@ -93,6 +100,9 @@ export const Register = (props: any) => {
     },
     {
       label: 'Cheerleading'
+    },
+    {
+      label: 'Coach'
     }
   ];
 
@@ -112,7 +122,14 @@ export const Register = (props: any) => {
           setNotification({ open: true, message: data.error, severity: 'error', onClose: () => {} });
         } else {
           resetForm();
-          setNotification({ open: true, message: 'Thank you! You have registered successfuly!', severity: 'success', onClose: () => {} });
+          setNotification({
+            open: true,
+            message: 'Thank you! You have registered successfuly!',
+            severity: 'success',
+            onClose: () => {
+              history.push('/');
+            }
+          });
         }
       })
       .catch((error) => {
@@ -150,6 +167,7 @@ export const Register = (props: any) => {
     <Container>
       <Spinner display={spinner} />
       <Header title="COVID-19 Athlete Registration" />
+      <Breadcrumb label="Go back to COVID Triage Page" onClick={() => history.push('/')} />
       <Paper className="paper-padding">
         <Disclaimer />
       </Paper>
