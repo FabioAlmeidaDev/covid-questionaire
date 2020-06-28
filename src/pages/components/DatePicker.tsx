@@ -5,17 +5,22 @@ import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker as DP } from '@material-ui/pickers';
 
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
+import { composeInitialProps } from 'react-i18next';
 
 export const DatePicker = (props: any) => {
   // The first commit of Material-UI
   const { state, setState } = props;
 
   React.useEffect(() => {
-    setState({ ...state, dob: new Date('2010-01-01T00:00:00') });
+    const initDate = props.date ? props.date : '2010-01-01T00:00:00';
+    setState({ ...state, dob: new Date(initDate) });
   }, []);
 
   const handleDateChange = (date: Date | null) => {
     setState({ ...state, dob: date });
+    if (props.onChange) {
+      props.onChange(date);
+    }
   };
 
   return (
@@ -24,7 +29,7 @@ export const DatePicker = (props: any) => {
         className={props.className}
         margin="normal"
         id="date-picker-dialog"
-        label="Date of birth"
+        label={props.label ? props.label : 'Date of birth'}
         format="MM/dd/yyyy"
         value={state.dob}
         onChange={handleDateChange}

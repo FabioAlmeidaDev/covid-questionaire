@@ -103,6 +103,10 @@ body {
   }
 }
 
+.date-picker-container {
+  display: flex;
+  justify-content: flex-end;
+}
 .breadcrumb-button {
   display: flex;
 }

@@ -11,6 +11,7 @@ import './App.scss';
 // Pages
 import Home from './pages/Home.tsx';
 import Register from './pages/Register.tsx';
+import Report from './pages/AttendanceReport.tsx';
 import i18n from './i18n';
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
         <Switch>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/report">
+            <Report />
           </Route>
           <Route path="/">
             <Home />
