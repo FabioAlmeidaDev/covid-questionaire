@@ -6,12 +6,14 @@ import { withConditionalRender } from '../../enhancers/withConditionalRender';
 export const Questions = withConditionalRender((props: any) => {
   const { questions, setQuestions } = props;
 
-  React.useEffect(() => {
-    getQuestionList().then((data: any) => {
-      data.map((item: any) => (item['v'] = true));
-      setQuestions(data);
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   getQuestionList().then((data: any) => {
+  //     console.log('Line 11 Questions.tsx');
+
+  //     data.map((item: any) => (item['v'] = true));
+  //     // setQuestions(data);
+  //   });
+  // }, []);
 
   return (
     <div className="questionaire">

@@ -14,6 +14,7 @@ import { Header } from './components/Header';
 import { Disclaimer } from './components/Disclaimer';
 import { Notification } from './components/Snackbar';
 import { withConditionalRender } from '../enhancers/withConditionalRender';
+import { getQuestionList } from '../services/covid-traffic';
 
 import '../App.scss';
 
@@ -25,6 +26,15 @@ export const Home = (props: any) => {
   const [notification, setNotification] = React.useState({ message: '', open: false, severity: 'success', onClose: () => {} });
 
   let history = useHistory();
+
+  React.useEffect(() => {
+    getQuestionList().then((data: any) => {
+      console.log('Line 11 Questions.tsx');
+
+      data.map((item: any) => (item['v'] = true));
+      setQuestions(data);
+    });
+  }, []);
 
   // adding conditional display to button
   const Button = withConditionalRender(MUIButton);
@@ -84,10 +94,10 @@ export const Home = (props: any) => {
       </div>
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
       <Paper className="paper-padding" display={!!value.name}>
-        <Questions questions={questions} setQuestions={setQuestions} display={!!value.name} />
+        <Questions questions={questions} setQuestions={setQuestions} />
         <div className="row footer">
-          <Password state={password} setState={setPassword} display={!!value.name} placeholder="4 Digit Pin" maxLength={4} className="password" />
-          <Button variant="contained" color="primary" display={!!value.name} onClick={saveData} disabled={password.password.length < 4}>
+          <Password state={password} setState={setPassword} placeholder="4 Digit Pin" maxLength={4} className="password" />
+          <Button variant="contained" color="primary" onClick={saveData} disabled={password.password.length < 4}>
             Save Answers
           </Button>
         </div>
