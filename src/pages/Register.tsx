@@ -135,6 +135,9 @@ export const Register = (props: any) => {
       label: 'Cheerleading'
     },
     {
+      label: 'College Athlete'
+    },
+    {
       label: 'Coach'
     },
     {
