@@ -218,7 +218,7 @@ export const Register = (props: any) => {
       </Paper>
       <Paper className="paper-padding">
         <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Parent or Guardian" value={state.guardian} variant="outlined" onChange={handleChange('guardian')} />
+          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Parent or Guardian (Athlete's name if 18yo or older)" value={state.guardian} variant="outlined" onChange={handleChange('guardian')} />
         </div>
         <div className="form-row">
           <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Gymnast's Full Name" value={state.name} variant="outlined" onChange={handleChange('name')} />
