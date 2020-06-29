@@ -54,6 +54,15 @@ export const Home = (props: any) => {
       setPassword({ password: '' });
     }
   };
+  const countYes = (): number => {
+    let count = 0;
+    questions.map((question: any) => {
+      if (question.v == 'true' || question.v == true) {
+        count = count + 1;
+      }
+    });
+    return count;
+  };
 
   const saveData = () => {
     setSpinner(true);
@@ -97,8 +106,12 @@ export const Home = (props: any) => {
         <Questions questions={questions} setQuestions={setQuestions} />
       </Paper>
       <div className="row footer" style={{ display: !value.name ? 'none' : '' }}>
-        <Password state={password} setState={setPassword} placeholder="4 Digit Pin" maxLength={4} className="password" />
-        <Button variant="contained" color="primary" onClick={saveData} disabled={password.password.length < 4}>
+        <div className="answered-yes" style={{ display: countYes() > 0 ? 'flex' : 'none' }}>
+          You have answered yes to ({countYes()}) question(s). You are not allowed to enter the gym!
+        </div>
+
+        <Password state={password} setState={setPassword} placeholder="4 Digit Pin" maxLength={4} className="password" style={{ display: countYes() == 0 ? 'flex' : 'none' }} />
+        <Button variant="contained" color="primary" onClick={saveData} disabled={password.password.length < 4} style={{ display: countYes() == 0 ? 'flex' : 'none' }}>
           Save Answers
         </Button>
       </div>

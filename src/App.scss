@@ -114,6 +114,10 @@ body {
   color: rgba(0, 0, 255, 0.3);
   margin-right: 10px;
 }
+.answered-yes {
+  color: red;
+  font-weight: bold;
+}
 @media screen and (max-width: 600px) {
   .question-answer {
     margin-top: 20px;

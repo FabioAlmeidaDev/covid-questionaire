@@ -11,7 +11,7 @@ import { withConditionalRender } from '../../enhancers/withConditionalRender';
 export const Password = withConditionalRender((props: any) => {
   const [visibility, setVisibility] = React.useState(false);
 
-  const { state, setState, placeholder = '', maxLength = 20, className } = props;
+  const { state, setState, placeholder = '', maxLength = 20, className, style } = props;
   const handleChange = (prop: any) => (event: any) => {
     if (event.target) {
       if (event.target.value.length <= maxLength) {
@@ -29,7 +29,7 @@ export const Password = withConditionalRender((props: any) => {
   };
 
   return (
-    <FormControl className={className}>
+    <FormControl className={className} style={style}>
       <InputLabel htmlFor="adornment-password">{placeholder}</InputLabel>
       <Input
         id="adornment-password"
