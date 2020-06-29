@@ -57,6 +57,39 @@ export const Register = (props: any) => {
       label: 'USAG - Elite'
     },
     {
+      label: 'USAG - Level 1 (Boys)'
+    },
+    {
+      label: 'USAG - Level 2 (Boys)'
+    },
+    {
+      label: 'USAG - Level 3 (Boys)'
+    },
+    {
+      label: 'USAG - Level 4 (Boys)'
+    },
+    {
+      label: 'USAG - Level 5 (Boys)'
+    },
+    {
+      label: 'USAG - Level 6 (Boys)'
+    },
+    {
+      label: 'USAG - Level 7 (Boys)'
+    },
+    {
+      label: 'USAG - Level 8 (Boys)'
+    },
+    {
+      label: 'USAG - Level 9 (Boys)'
+    },
+    {
+      label: 'USAG - Level 10 (Boys)'
+    },
+    {
+      label: 'USAG - Elite (Boys)'
+    },
+    {
       label: 'Boys - JD'
     },
     {

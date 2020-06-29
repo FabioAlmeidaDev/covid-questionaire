@@ -3,6 +3,7 @@ import { withConditionalRender } from '../../enhancers/withConditionalRender';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import Person from '@material-ui/icons/Person';
+import capitalize from '../functions/capitalize';
 
 const component = (props: any) => {
   const { value, setValue, onClose } = props;
@@ -14,7 +15,7 @@ const component = (props: any) => {
         <IconButton>
           <Person />
         </IconButton>
-        {value.name} <span className="athlete-group">({value.group})</span>
+        {capitalize(value.name)} <span className="athlete-group">({value.group})</span>
       </div>
       <div className="clear-button" onClick={clearButtonHandler}>
         <IconButton>
