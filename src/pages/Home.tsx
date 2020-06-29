@@ -98,7 +98,7 @@ export const Home = (props: any) => {
       <div className="add-new-name">
         <Button variant="outlined" color="primary" display={!value.name} onClick={() => history.push('/register')}>
           <Person fontSize="small" className="add-person-icon" />
-          Click to add a new name
+          Click here to add a new name
         </Button>
       </div>
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
