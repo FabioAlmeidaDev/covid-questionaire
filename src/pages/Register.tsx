@@ -218,7 +218,7 @@ export const Register = (props: any) => {
       </Paper>
       <Paper className="paper-padding">
         <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Parent or Guardian (Athlete's name if 18yo or older)" value={state.guardian} variant="outlined" onChange={handleChange('guardian')} />
+          <TextField className={`col-sm-8 col-xs-12${state.guardian ? '' : ' danger'}`} id="outlined-error-helper-text" label="Parent or Guardian (Athlete's name if 18yo or older)" value={state.guardian} variant="outlined" onChange={handleChange('guardian')} />
         </div>
         <div className="form-row">
           <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Gymnast's Full Name" value={state.name} variant="outlined" onChange={handleChange('name')} />
@@ -252,7 +252,10 @@ export const Register = (props: any) => {
           <Password name="fourDigitPin" maxLength={4} state={state} setState={setState} placeholder="Confirm 4 Digit Pin" error={state.password != state.fourDigitPin} />
         </div>
         <div className="form-row">
-          <Button variant="contained" color="primary" onClick={saveData} disabled={state.password != state.fourDigitPin || checkEmptyFields()}>
+          <div className="answered-yes" style={{ display: !state.guardian ? 'flex' : 'none' }}>
+            You must enter a guardian name to register
+          </div>
+          <Button variant="contained" color="primary" onClick={saveData} disabled={state.password != state.fourDigitPin || checkEmptyFields()} style={{ display: state.guardian ? 'flex' : 'none' }}>
             Register Athlete
           </Button>
         </div>

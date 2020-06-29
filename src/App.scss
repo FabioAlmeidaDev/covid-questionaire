@@ -118,6 +118,9 @@ body {
   color: red;
   font-weight: bold;
 }
+.danger .MuiOutlinedInput-notchedOutline {
+  border: 1px solid red !important;
+}
 @media screen and (max-width: 600px) {
   .question-answer {
     margin-top: 20px;
