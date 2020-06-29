@@ -121,6 +121,11 @@ body {
 .danger .MuiOutlinedInput-notchedOutline {
   border: 1px solid red !important;
 }
+.clear-filter-button {
+  position: absolute !important;
+  right: 15px;
+  top: 5px;
+}
 @media screen and (max-width: 600px) {
   .question-answer {
     margin-top: 20px;

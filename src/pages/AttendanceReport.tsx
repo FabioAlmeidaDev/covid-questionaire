@@ -22,6 +22,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { getReport } from '../services/covid-traffic';
 import { DatePicker } from './components/DatePicker';
+import { Filter } from './components/FilterField';
 
 interface Data {
   name: string;
@@ -161,11 +162,7 @@ const Report = (props: EnhancedTableToolbarProps) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        ''
       )}
     </Toolbar>
   );
@@ -198,19 +195,23 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function EnhancedTable() {
+  const dataSchema = { name: '', group: '', yes: 0, no: 0 };
   const classes = useStyles();
+  const [originalRowData, setoriginalRowData] = React.useState([dataSchema]);
+  const [rows, setRows] = React.useState([dataSchema]);
   const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('name');
+  const [orderBy, setOrderBy] = React.useState<keyof Data>('group');
   const [selected, setSelected] = React.useState<string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState([{ name: '', group: '', yes: 0, no: 0 }]);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [date, setDate] = React.useState({ dob: new Date() });
+  const [filter, setFilter] = React.useState('');
 
   const getReportData = (d?: any) => {
     d = d ? d : date.dob;
     let end = new Date(d);
+    console.log('DATE', d);
     end.setHours(23, 59, 59, 999);
     let start = new Date(d);
     start.setHours(0, 0, 0, 0);
@@ -219,6 +220,7 @@ export default function EnhancedTable() {
       to: end
     };
     getReport(obj).then((data) => {
+      setoriginalRowData(data);
       setRows(data);
     });
   };
@@ -273,6 +275,19 @@ export default function EnhancedTable() {
 
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
+  const handleFilter = (e: any) => {
+    const text = e.target.value;
+    const filtered = originalRowData.filter((item: any) => item.name.toLocaleLowerCase().indexOf(text) > -1);
+    setFilter(text);
+    console.log(filtered);
+    setRows(filtered);
+  };
+
+  const handleClearFilter = () => {
+    setFilter('');
+    setRows(originalRowData);
+  };
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
@@ -282,6 +297,8 @@ export default function EnhancedTable() {
       </div>
       <Paper className={classes.paper}>
         <Report numSelected={selected.length} />
+        <Filter value={filter} setValue={handleFilter} onClearFilter={handleClearFilter} />
+
         <TableContainer>
           <Table className={classes.table} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'} aria-label="enhanced table">
             <EnhancedTableHead classes={classes} numSelected={selected.length} order={order} orderBy={orderBy} onSelectAllClick={handleSelectAllClick} onRequestSort={handleRequestSort} rowCount={rows.length} />
@@ -313,7 +330,7 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination rowsPerPageOptions={[5, 10, 25]} component="div" count={rows.length} rowsPerPage={rowsPerPage} page={page} onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
+        <TablePagination rowsPerPageOptions={[5, 10, 25, 50, rows.length]} component="div" count={rows.length} rowsPerPage={rowsPerPage} page={page} onChangePage={handleChangePage} onChangeRowsPerPage={handleChangeRowsPerPage} />
       </Paper>
       <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label="Dense padding" />
     </Container>
