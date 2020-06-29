@@ -36,7 +36,7 @@ export const DatePicker = (props: any) => {
         KeyboardButtonProps={{
           'aria-label': 'change date'
         }}
-        disableFuture={true}
+        disableFuture={false}
       />
     </MuiPickersUtilsProvider>
     // <MuiPickersUtilsProvider utils={DateFnsUtils}>
