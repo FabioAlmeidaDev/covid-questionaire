@@ -277,7 +277,7 @@ export default function EnhancedTable() {
 
   const handleFilter = (e: any) => {
     const text = e.target.value;
-    const filtered = originalRowData.filter((item: any) => item.name.toLocaleLowerCase().indexOf(text) > -1);
+    const filtered = originalRowData.filter((item: any) => item.name.toLocaleLowerCase().indexOf(text.toLocaleLowerCase()) > -1);
     setFilter(text);
     console.log(filtered);
     setRows(filtered);
