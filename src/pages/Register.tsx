@@ -159,6 +159,9 @@ export const Register = (props: any) => {
   };
 
   const saveData = () => {
+    if (!checkNeedGuardian()) {
+      setState({ ...state, guardian: state.name });
+    }
     setSpinner(true);
     registerAthlete(state)
       .then((data) => {
@@ -180,30 +183,17 @@ export const Register = (props: any) => {
       .catch((error) => {
         setSpinner(false);
       });
-
-    // pre validate to make sure none of the answers are clicked yes
-    // if yes to any, take action and save
-
-    // Reset user and questions on save
-
-    // saveAnswers(data)
-    //   .then((data) => {
-    //     setSpinner(false);
-    //     if (!!data.error) {
-    //       setNotification({ open: true, message: data.error, severity: 'error', onClose: resetData });
-    //     } else {
-    //       resetData();
-    //       setNotification({ open: true, message: 'Thank you! Data saved successfuly!', severity: 'success', onClose: () => {} });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     setSpinner(false);
-    //   });
   };
   const checkEmptyFields = () => {
-    return !(state.guardian && state.name && state.password && state.phone_no && state.gym && state.group && state.fourDigitPin && state.dob);
+    const guardian = state.guardian || !checkNeedGuardian();
+    return !(guardian && state.name && state.password && state.phone_no && state.gym && state.group && state.fourDigitPin && state.dob);
   };
-
+  const checkNeedGuardian = () => {
+    if (state.group === 'Parent' || state.group === 'Coach' || state.group === 'Staff' || state.group === 'College Athlete') {
+      return false;
+    }
+    return true;
+  };
   const handleChange = (prop: any) => (event: any) => {
     setState({ ...state, [prop]: event.target.value });
   };
@@ -218,19 +208,7 @@ export const Register = (props: any) => {
       </Paper>
       <Paper className="paper-padding">
         <div className="form-row">
-          <TextField className={`col-sm-8 col-xs-12${state.guardian ? '' : ' danger'}`} id="outlined-error-helper-text" label="Parent or Guardian (Athlete's name if 18yo or older)" value={state.guardian} variant="outlined" onChange={handleChange('guardian')} />
-        </div>
-        <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Gymnast's Full Name" value={state.name} variant="outlined" onChange={handleChange('name')} />
-        </div>
-        <div className="form-row">
-          <DatePicker className="col-sm-8 col-xs-12" label="Date of Birth" state={state} setState={setState} variant="outlined" />
-        </div>
-        <div className="form-row">
-          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Gym" defaultValue="APEX Athletics" value={state.gym} variant="outlined" onChange={handleChange('gym')} />
-        </div>
-        <div className="form-row">
-          <TextField select className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Group" value={state.group} variant="outlined" onChange={handleChange('group')}>
+          <TextField select className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="This registration is for a Parent, Coach, Gymnast (select level)" value={state.group} variant="outlined" onChange={handleChange('group')}>
             {groups.map((option) => (
               <MenuItem key={option.label} value={option.label}>
                 {option.label}
@@ -238,6 +216,27 @@ export const Register = (props: any) => {
             ))}
           </TextField>
         </div>
+        <div className="form-row">
+          <TextField
+            style={{ display: checkNeedGuardian() ? 'flex' : 'none' }}
+            className={`col-sm-8 col-xs-12${state.guardian ? '' : ' danger'}`}
+            id="outlined-error-helper-text"
+            label="Parent or Guardian (Athlete's name if 18yo or older)"
+            value={state.guardian}
+            variant="outlined"
+            onChange={handleChange('guardian')}
+          />
+        </div>
+        <div className="form-row">
+          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label={`${checkNeedGuardian() ? 'Gymnast' : state.group}'s Full Name`} value={state.name} variant="outlined" onChange={handleChange('name')} />
+        </div>
+        <div className="form-row">
+          <DatePicker className="col-sm-8 col-xs-12" label="Date of Birth" state={state} setState={setState} variant="outlined" />
+        </div>
+        <div className="form-row">
+          <TextField className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Gym" defaultValue="APEX Athletics" value={state.gym} variant="outlined" onChange={handleChange('gym')} />
+        </div>
+
         <div className="form-row">
           <TextField inputProps={{ inputMode: 'email' }} className="col-sm-8 col-xs-12" id="outlined-error-helper-text" label="Email" value={state.email} variant="outlined" onChange={handleChange('email')} />
         </div>
@@ -252,11 +251,11 @@ export const Register = (props: any) => {
           <Password name="fourDigitPin" maxLength={4} state={state} setState={setState} placeholder="Confirm 4 Digit Pin" error={state.password != state.fourDigitPin} />
         </div>
         <div className="form-row">
-          <div className="answered-yes" style={{ display: !state.guardian ? 'flex' : 'none' }}>
+          <div className="answered-yes" style={{ display: !state.guardian && checkNeedGuardian() ? 'flex' : 'none' }}>
             You must enter a guardian name to register
           </div>
-          <Button variant="contained" color="primary" onClick={saveData} disabled={state.password != state.fourDigitPin || checkEmptyFields()} style={{ display: state.guardian ? 'flex' : 'none' }}>
-            Register Athlete
+          <Button variant="contained" color="primary" onClick={saveData} disabled={state.password != state.fourDigitPin || checkEmptyFields()} style={{ display: state.guardian || !checkNeedGuardian() ? 'flex' : 'none' }}>
+            Register
           </Button>
         </div>
       </Paper>

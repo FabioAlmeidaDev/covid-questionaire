@@ -70,9 +70,9 @@ interface HeadCell {
 
 const headCells: HeadCell[] = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Full Name' },
-  { id: 'group', numeric: true, disablePadding: false, label: 'Group' },
-  { id: 'yes', numeric: true, disablePadding: false, label: 'Yes' },
-  { id: 'no', numeric: true, disablePadding: false, label: 'No' }
+  { id: 'group', numeric: true, disablePadding: true, label: 'Group' },
+  { id: 'yes', numeric: true, disablePadding: true, label: 'Yes' },
+  { id: 'no', numeric: true, disablePadding: true, label: 'No' }
 ];
 
 interface EnhancedTableProps {
@@ -98,7 +98,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <Checkbox indeterminate={numSelected > 0 && numSelected < rowCount} checked={rowCount > 0 && numSelected === rowCount} onChange={onSelectAllClick} inputProps={{ 'aria-label': 'select all desserts' }} />
         </TableCell>
         {headCells.map((headCell) => (
-          <TableCell key={headCell.id} align={headCell.numeric ? 'right' : 'left'} padding={headCell.disablePadding ? 'none' : 'default'} sortDirection={orderBy === headCell.id ? order : false}>
+          <TableCell key={headCell.id} align="left" padding={headCell.disablePadding ? 'none' : 'default'} sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : 'asc'} onClick={createSortHandler(headCell.id)}>
               {headCell.label}
               {orderBy === headCell.id ? <span className={classes.visuallyHidden}>{order === 'desc' ? 'sorted descending' : 'sorted ascending'}</span> : null}
@@ -178,7 +178,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: theme.spacing(2)
     },
     table: {
-      minWidth: 750
+      minWidth: 300
     },
     visuallyHidden: {
       border: 0,
@@ -276,8 +276,10 @@ export default function EnhancedTable() {
   const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
   const handleFilter = (e: any) => {
-    const text = e.target.value;
-    const filtered = originalRowData.filter((item: any) => item.name.toLocaleLowerCase().indexOf(text.toLocaleLowerCase()) > -1);
+    const text = e.target.value ? e.target.value.toLowerCase() : '';
+    const filtered = originalRowData.filter((item: any) => {
+      return item.name.toLowerCase().indexOf(text.toLocaleLowerCase()) > -1;
+    });
     setFilter(text);
     console.log(filtered);
     setRows(filtered);
@@ -315,10 +317,14 @@ export default function EnhancedTable() {
                         <Checkbox checked={isItemSelected} inputProps={{ 'aria-labelledby': labelId }} />
                       </TableCell>
 
-                      <TableCell align="right">{row.name}</TableCell>
-                      <TableCell align="right">{row.group}</TableCell>
-                      <TableCell align="right">{row.yes}</TableCell>
-                      <TableCell align="right">{row.no}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
+                      <TableCell align="left">{row.group}</TableCell>
+                      <TableCell align="left" padding="none">
+                        {row.yes}
+                      </TableCell>
+                      <TableCell align="left" padding="none">
+                        {row.no}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
