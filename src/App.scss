@@ -72,6 +72,28 @@ body {
   display: flex;
   width: 100%;
 }
+.spinner-backdrop {
+  display: block;
+  position: fixed;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+.loading-athletes-list {
+  color: #666;
+  padding: 10px;
+}
+.sweet-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
 .full-name-and-group {
   flex: 1;
 }
