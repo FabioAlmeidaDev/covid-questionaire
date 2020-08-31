@@ -1,8 +1,18 @@
 body {
   background-color: #fafafa;
 }
-.search-bar {
+.search-row {
   margin-top: 20px;
+  padding: 0px 10px;
+}
+.search-bar {
+  flex: 13;
+}
+.search-row button {
+  flex: 1;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-left: 10px;
 }
 .selected-option {
   font-weight: bold;
@@ -59,10 +69,16 @@ body {
   font-size: 1.4em;
   padding-right: 10px;
   color: rgb(30, 125, 220);
+  display: flex;
+  width: 100%;
+}
+.full-name-and-group {
+  flex: 1;
 }
 .athlete-group {
   padding-right: 10px;
   color: #ccc;
+  font-size: 1rem;
 }
 
 .footer {

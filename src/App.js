@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import i16n from './i18n';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import i16n from "./i18n";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import './App.scss';
+import "./App.scss";
 
 // Pages
-import Home from './pages/Home.tsx';
-import Register from './pages/Register.tsx';
-import Report from './pages/AttendanceReport.tsx';
-import i18n from './i18n';
+import Home from "./pages/Home.tsx";
+import Register from "./pages/Register.tsx";
+import Report from "./pages/AttendanceReport.tsx";
+import i18n from "./i18n";
 
 function App() {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState("en");
 
   const changeLanguage = (ln) => {
     return () => {
@@ -29,18 +29,19 @@ function App() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    if (loc.indexOf('/projects') > -1) {
+    if (loc.indexOf("/projects") > -1) {
       return (
         <div className="home-button">
-          <a href={`/#project-id-${urlParams.get('id')}`}>
+          <a href={`/#project-id-${urlParams.get("id")}`}>
             <FontAwesomeIcon icon={faHome} /> Home
           </a>
         </div>
       );
     } else {
-      return '';
+      return "";
     }
   };
+
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <div>
