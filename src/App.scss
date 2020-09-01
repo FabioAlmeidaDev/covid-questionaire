@@ -53,6 +53,41 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: stretch;
+  flex-direction: column;
+  align-items: flex-end;
+}
+@media screen and (max-width: 600px) {
+  .date-formatted {
+    justify-content: center !important;
+    align-items: center;
+  }
+}
+.week-number {
+  font-size: 0.9em;
+}
+.week-letter {
+  font-size: 1.2em;
+  /* padding: 5px; */
+  border-radius: 100px;
+  height: 27px;
+  width: 27px;
+  display: inline-block;
+  color: wheat;
+  text-align: center;
+  font-size: 0.96em;
+  font-weight: bold;
+}
+.red {
+  color: #b71c1c;
+  .week-letter {
+    background-color: #b71c1c;
+  }
+}
+.blue {
+  color: #0066cc;
+  .week-letter {
+    background-color: #0066cc;
+  }
 }
 .yesno {
   font-size: 0.8em;
