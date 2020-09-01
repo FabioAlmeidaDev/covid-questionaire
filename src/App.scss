@@ -63,7 +63,8 @@ body {
   }
 }
 .week-number {
-  font-size: 0.9em;
+  font-size: 17px;
+  padding: 10px;
 }
 .week-letter {
   font-size: 1.2em;
@@ -178,7 +179,11 @@ body {
 
 .date-picker-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+}
+.report-date-picker {
+  width: 150px;
 }
 .breadcrumb-button {
   display: flex;
