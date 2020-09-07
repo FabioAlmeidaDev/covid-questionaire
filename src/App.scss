@@ -237,3 +237,22 @@ body {
   display: flex;
   justify-content: space-around;
 }
+.flat-icon-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flat-icon {
+  height: 80px;
+}
+.allergy-paper-green {
+  border: 2px solid rgb(34, 165, 1);
+}
+
+.allergy-paper-red {
+  border: 2px solid rgb(165, 1, 64);
+}
+.report-allergy-icon {
+  height: 22px;
+}

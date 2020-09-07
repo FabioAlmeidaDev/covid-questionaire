@@ -6,6 +6,7 @@ import { Container, Paper as P, Button as MUIButton } from "@material-ui/core";
 import Person from "@material-ui/icons/PersonAdd";
 import { Search } from "./components/Searchbar";
 import { Questions } from "./components/Questions";
+import { Allergies } from "./components/Allergies";
 import { saveAnswers } from "../services/covid-traffic";
 import { PersonDetails } from "./components/PersonDetails";
 import { Password } from "./components/Password";
@@ -21,6 +22,8 @@ import "../App.scss";
 export const Home = (props: any) => {
   const [value, setValue] = React.useState({ _id: null, name: "", group: "", dob: "" });
   const [questions, setQuestions] = React.useState([]);
+  const [allergies, setAllergies] = React.useState(false);
+  const [drnote, setDrnote] = React.useState(false);
   const [spinner, setSpinner] = React.useState(false);
   const [password, setPassword] = React.useState({ password: "" });
   const [notification, setNotification] = React.useState({ message: "", open: false, severity: "success", onClose: () => {} });
@@ -72,6 +75,8 @@ export const Home = (props: any) => {
       userId: value._id,
       password: password.password,
       questions: questions,
+      allergies: allergies,
+      drnote: drnote,
     };
     saveAnswers(data)
       .then((data) => {
@@ -100,10 +105,14 @@ export const Home = (props: any) => {
         </Button>
       </div>
       <PersonDetails value={value} setValue={setValue} display={!!value.name} onClose={resetData} />
-      <Paper className="paper-padding" display={!!value.name}>
+      <Paper className={`paper-padding ${allergies == false || (allergies == true && drnote == true) ? "allergy-paper-green" : "allergy-paper-red"}`} display={!!value.name}>
+        <Allergies allergies={allergies} setAllergies={setAllergies} drnote={drnote} setDrnote={setDrnote} />
+      </Paper>
+
+      <Paper className="paper-padding" display={!!value.name && (allergies == false || (allergies == true && drnote == true))}>
         <Questions questions={questions} setQuestions={setQuestions} />
       </Paper>
-      <div className="row footer" style={{ display: !value.name ? "none" : "" }}>
+      <div className="row footer" style={{ display: !!value.name && (allergies == false || (allergies == true && drnote == true)) ? "" : "none" }}>
         <div className="answered-yes" style={{ display: countYes() > 0 ? "flex" : "none" }}>
           You have answered yes to ({countYes()}) question(s). You are not allowed to enter the gym!
         </div>

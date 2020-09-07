@@ -1,7 +1,7 @@
-import React from 'react';
-import { IOsSwitch } from '../components/IOsSwitch';
-import { getQuestionList } from '../../services/covid-traffic';
-import { withConditionalRender } from '../../enhancers/withConditionalRender';
+import React from "react";
+import { IOsSwitch } from "../components/IOsSwitch";
+import { getQuestionList } from "../../services/covid-traffic";
+import { withConditionalRender } from "../../enhancers/withConditionalRender";
 
 export const Questions = withConditionalRender((props: any) => {
   const { questions, setQuestions } = props;

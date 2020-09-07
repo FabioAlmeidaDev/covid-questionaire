@@ -26,6 +26,8 @@ import { Filter } from "./components/FilterField";
 import moment from "moment";
 
 interface Data {
+  allergy: boolean;
+  drnote: boolean;
   name: string;
   group: string;
   yes: number;
@@ -38,8 +40,8 @@ const ABWeek = () => {
   return weekno % 2 === 0 ? "A" : "B";
 };
 
-function createData(name: string, group: string, yes: number, no: number): Data {
-  return { name, group, yes, no };
+function createData(drnote: boolean, allergy: boolean, name: string, group: string, yes: number, no: number): Data {
+  return { drnote, allergy, name, group, yes, no };
 }
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -54,7 +56,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 type Order = "asc" | "desc";
 
-function getComparator<Key extends keyof any>(order: Order, orderBy: Key): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
+function getComparator<Key extends keyof any>(order: Order, orderBy: Key): (a: { [key in Key]: number | string | boolean }, b: { [key in Key]: number | string | boolean }) => number {
   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
@@ -76,6 +78,7 @@ interface HeadCell {
 }
 
 const headCells: HeadCell[] = [
+  { id: "allergy", numeric: false, disablePadding: true, label: "Allergy" },
   { id: "name", numeric: false, disablePadding: true, label: "Full Name" },
   { id: "group", numeric: true, disablePadding: true, label: "Group" },
   { id: "yes", numeric: true, disablePadding: true, label: "Yes" },
@@ -101,9 +104,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox indeterminate={numSelected > 0 && numSelected < rowCount} checked={rowCount > 0 && numSelected === rowCount} onChange={onSelectAllClick} inputProps={{ "aria-label": "select all desserts" }} />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell key={headCell.id} align="left" padding={headCell.disablePadding ? "none" : "default"} sortDirection={orderBy === headCell.id ? order : false}>
             <TableSortLabel active={orderBy === headCell.id} direction={orderBy === headCell.id ? order : "asc"} onClick={createSortHandler(headCell.id)}>
@@ -202,7 +202,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function EnhancedTable() {
-  const dataSchema = { name: "", group: "", yes: 0, no: 0 };
+  const dataSchema = { drnote: false, allergy: false, name: "", group: "", yes: 0, no: 0 };
   const classes = useStyles();
   const [originalRowData, setoriginalRowData] = React.useState([dataSchema]);
   const [rows, setRows] = React.useState([dataSchema]);
@@ -322,11 +322,11 @@ export default function EnhancedTable() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow hover onClick={(event) => handleClick(event, row.name)} role="checkbox" aria-checked={isItemSelected} tabIndex={-1} key={row.name} selected={isItemSelected}>
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isItemSelected} inputProps={{ "aria-labelledby": labelId }} />
+                    <TableRow hover onClick={(event) => handleClick(event, row.name)} aria-checked={isItemSelected} tabIndex={-1} key={row.name} selected={isItemSelected}>
+                      <TableCell align="left">
+                        <img src="allergy.svg" className="report-allergy-icon" style={{ display: row.allergy == true ? "" : "none" }} />
+                        <img src="drnote.svg" className="report-allergy-icon" style={{ display: row.drnote == true ? "" : "none" }} />
                       </TableCell>
-
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.group}</TableCell>
                       <TableCell align="left" padding="none">
