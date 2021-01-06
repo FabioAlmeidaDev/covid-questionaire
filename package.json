@@ -21,7 +21,7 @@
     "@types/classnames": "^2.2.10",
     "@types/react-router-dom": "^5.1.5",
     "@types/recompose": "^0.30.7",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "classname": "0.0.0",
     "clsx": "^1.1.1",
